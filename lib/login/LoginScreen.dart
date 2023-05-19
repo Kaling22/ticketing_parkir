@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ticketing_parkir/menu/HomeScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({key}) : super(key: key);
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/img/logo.png',
+              'assets/images/parkir_icon.jpg',
               height: 80,
               width: 80,
             ),
@@ -23,7 +24,7 @@ class LoginScreen extends StatelessWidget {
               height: 10,
             ),
             const Text(
-              'ValoWiki',
+              'Ticketing Parkir',
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -77,13 +78,8 @@ class LoginScreen extends StatelessWidget {
                   border: Border.all(color: Color.fromARGB(255, 233, 60, 60)),
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
-                  onPressed: () async {
-                    await _firebaseAuth
-                        .signInWithEmailAndPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text)
-                        .then((value) => Navigator.of(context)
-                            .push(createRoute(HomeScreen())));
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/HomeScreen');
                   },
                   child: const Text(
                     "Login",
