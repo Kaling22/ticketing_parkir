@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ticketing_parkir/main.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class OutputKendaraanScreen extends StatelessWidget {
+  const OutputKendaraanScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("Output"),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -26,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Home",
+                  "Output",
                   style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 20,
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           new GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/Input');
+              // halaman lain
             },
             child: new Container(
               padding: const EdgeInsets.all(8),
@@ -89,9 +88,8 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           new GestureDetector(
-            
             onTap: () {
-              Navigator.pushNamed(context, '/Output');
+              // halaman lain
             },
             child: new Container(
               padding: const EdgeInsets.all(8),

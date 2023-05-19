@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/HomeScreen');
+                    Navigator.pushNamed(context, '/Home');
                   },
                   child: const Text(
                     "Login",

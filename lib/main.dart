@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ticketing_parkir/login/LoginScreen.dart';
 import 'package:ticketing_parkir/menu/HomeScreen.dart';
+import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
+import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +23,12 @@ class MyApp extends StatelessWidget {
       ),
 
       //initialRoute: '/',
-      // home: Login(),
+      home: LoginScreen(),
       routes: <String, WidgetBuilder>{
-        '/home': (context) => HomeScreen(),
-        '/Login': (context) => LoginScreen()
+        '/Home': (context) => HomeScreen(),
+        '/Login': (context) => LoginScreen(),
+        '/Input': (context) => InputKendaraanScreen(),
+        '/Output': (context) => OutputKendaraanScreen()
         // '/agent': (context) => GetDataScreen(),
         // '/weapon': (context) => GetDataWeapon(),
       },
