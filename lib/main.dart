@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ticketing Parkir',
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        scaffoldBackgroundColor: Color.fromARGB(5, 17, 17, 17),
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color.fromARGB(255, 99, 152, 223),
       ),
 
       //initialRoute: '/',

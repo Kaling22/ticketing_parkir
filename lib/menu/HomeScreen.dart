@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ticketing_parkir/main.dart';
+
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             child: new Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 233, 60, 60)),
+                  border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(10)),
               child: Column(
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
             child: new Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 233, 60, 60)),
+                  border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(10)),
               child: Column(
