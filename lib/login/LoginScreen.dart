@@ -77,15 +77,19 @@ class LoginScreen extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
+                child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/Home');
+                },
                 child: Text(
                   textAlign: TextAlign.left,
                   'Reset Password',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Color.fromARGB(255, 231, 57, 57),
                   ),
-                ),
+                ),),
               ),
               const SizedBox(
                 height: 10,

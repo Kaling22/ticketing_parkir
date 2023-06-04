@@ -5,12 +5,12 @@ class OutputKendaraanScreen extends StatelessWidget {
   OutputKendaraanScreen({Key? key}) : super(key: key);
 
   final TextEditingController _nimController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Output"),
+        title: Text("Input"),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -34,46 +34,25 @@ class OutputKendaraanScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              height: 50,
-              width: double.infinity,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _nimController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration.collapsed(
-                    hintText: "NIM",
-                    hintStyle: TextStyle(color: Colors.white)),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/Home');
-                  },
-                  child: const Text(
-                    "Scan NFC KTM",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 17, 17, 17),
-                        fontWeight: FontWeight.w500),
-                  )),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            // Container(
+            //   height: 50,
+            //   width: double.infinity,
+            //   padding: EdgeInsets.all(16),
+            //   decoration: BoxDecoration(
+            //       border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     controller: _nimController,
+            //     style: TextStyle(color: Colors.white),
+            //     decoration: InputDecoration.collapsed(
+            //         hintText: "NIM",
+            //         hintStyle: TextStyle(color: Colors.white)),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Container(
               height: 50,
               width: double.infinity,
@@ -83,20 +62,39 @@ class OutputKendaraanScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/Home');
+                    Navigator.pushNamed(context, '/OutputManual');
                   },
                   child: const Text(
-                    "Simpan",
+                    "Input NIM Manual",
                     style: TextStyle(
                         color: Color.fromARGB(255, 17, 17, 17),
                         fontWeight: FontWeight.w500),
                   )),
             ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Container(
+            //   height: 50,
+            //   width: double.infinity,
+            //   decoration: BoxDecoration(
+            //       color: Color.fromARGB(255, 255, 255, 255),
+            //       border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   child: TextButton(
+            //       onPressed: (){
+            //         Navigator.pushNamed(context, '/Home');
+            //       },
+            //       child: const Text(
+            //         "Simpan",
+            //         style: TextStyle(
+            //             color: Color.fromARGB(255, 17, 17, 17),
+            //             fontWeight: FontWeight.w500),
+            //       )),
+            // ),
           ],
         ),
       )),
     );
   }
-
-  
 }

@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                     height: 16,
                   ),
                   Text(
-                    "Input Kendaraan Mahasiswa",
+                    "Memasukkan data parkir baru",
                     style: subTitle(),
                   ),
                 ],
@@ -112,14 +112,14 @@ class HomeScreen extends StatelessWidget {
                     height: 7,
                   ),
                   Text(
-                    "output kendaraan",
+                    "Kendaraan Keluar",
                     style: titleStyle(),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   Text(
-                    "Kendaraan mahasiswa keluar wilayah kampus",
+                    "Kendaraan keluar wilayah kampus",
                     style: subTitle(),
                   ),
                 ],

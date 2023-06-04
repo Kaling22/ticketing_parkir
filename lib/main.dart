@@ -3,6 +3,8 @@ import 'package:ticketing_parkir/login/LoginScreen.dart';
 import 'package:ticketing_parkir/menu/HomeScreen.dart';
 import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
 import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
+import 'package:ticketing_parkir/menu/InputManual.dart';
+import 'package:ticketing_parkir/menu/OutputManual.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +30,10 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => HomeScreen(),
         '/Login': (context) => LoginScreen(),
         '/Input': (context) => InputKendaraanScreen(),
-        '/Output': (context) => OutputKendaraanScreen()
-        // '/agent': (context) => GetDataScreen(),
-        // '/weapon': (context) => GetDataWeapon(),
+        '/Output': (context) => OutputKendaraanScreen(),
+        '/InputManual': (context) => InputManual(),
+        '/OutputManual': (context) => OutputManual()
+        
       },
     );
   }
