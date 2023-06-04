@@ -3,9 +3,6 @@ import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 
 class InputKendaraanScreen extends StatelessWidget {
   InputKendaraanScreen({Key? key}) : super(key: key);
-
-  final TextEditingController _nimController = TextEditingController();
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
