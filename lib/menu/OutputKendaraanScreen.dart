@@ -8,7 +8,7 @@ class OutputKendaraanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Input"),
+        title: Text("Keluar"),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
