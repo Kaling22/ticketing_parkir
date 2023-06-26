@@ -4,9 +4,6 @@ import 'package:ticketing_parkir/controllers/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({key}) : super(key: key);
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  
   LoginController loginController = Get.put(LoginController());
   var isLogin = false.obs;
   
