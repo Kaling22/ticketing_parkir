@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ticketing_parkir/controllers/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({key}) : super(key: key);
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  
+  LoginController loginController = Get.put(LoginController());
+  var isLogin = false.obs;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: TextFormField(
-                  controller: _emailController,
+                  controller: loginController.emailController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration.collapsed(
                     hintText: "E-Mail",
@@ -63,8 +68,10 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: TextFormField(
-                  controller: _passwordController,
+                  controller: loginController.passwordController,
                   obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration.collapsed(
                     hintText: "Password",
@@ -103,8 +110,10 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: TextButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/Home');
+                  
+                  onPressed: () => {
+                    loginController.loginWithEmail(),
+                    Navigator.pushNamed(context, '/Home')
                   },
                   child: const Text(
                     "Login",

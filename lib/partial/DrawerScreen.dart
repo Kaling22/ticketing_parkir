@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:ticketing_parkir/utils/end_points.dart';
+import 'package:http/http.dart' as http;
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
 
@@ -8,7 +10,6 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             iconData: Icons.logout,
             title: "Log-Out",
             onTilePressed: () {
-              Navigator.pushNamed(context, '/Login');
-            })
+            })    
       ],
     ));
   }

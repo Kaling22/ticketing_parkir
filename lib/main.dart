@@ -5,7 +5,7 @@ import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
 import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 import 'package:ticketing_parkir/menu/InputManual.dart';
 import 'package:ticketing_parkir/menu/OutputManual.dart';
-
+import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Ticketing Parkir',
       theme: ThemeData(
         primarySwatch: Colors.blue,
