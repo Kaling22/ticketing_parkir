@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_parkir/controllers/login_controller.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({key}) : super(key: key);
+  
   LoginController loginController = Get.put(LoginController());
   var isLogin = false.obs;
   

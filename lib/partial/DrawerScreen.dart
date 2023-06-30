@@ -24,8 +24,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         DrawerListTile(
             iconData: Icons.logout,
             title: "Log-Out",
-            onTilePressed: () {
-            })    
+            onTilePressed: () => Navigator.pop(context, '/Login'))    
       ],
     ));
   }
