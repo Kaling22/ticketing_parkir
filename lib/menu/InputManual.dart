@@ -199,7 +199,6 @@ Future<void> text () async{
                 Text(data!['angkatan'].toString()),
                 Text(data!['jurusan'].toString()),
                 Text(data!['fakultas'].toString()),
-                Text(id!),
                 Container(
             
                   child:  Row(
