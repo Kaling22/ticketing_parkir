@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ticketing_parkir/login/LoginScreen.dart';
-import 'package:ticketing_parkir/menu/HomeScreen.dart';
-import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
-import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
-import 'package:ticketing_parkir/menu/InputManual.dart';
-import 'package:ticketing_parkir/menu/OutputManual.dart';
 import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -23,16 +17,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Color.fromARGB(255, 99, 152, 223),
       ),
-
       //initialRoute: '/',
       home: LoginScreen(),
       routes: <String, WidgetBuilder>{
-        '/Home': (context) => HomeScreen(),
+        //'/Home': (context) => HomeScreen(),
         '/Login': (context) => LoginScreen(),
-        '/Input': (context) => InputKendaraanScreen(),
-        '/Output': (context) => OutputKendaraanScreen(),
-        '/InputManual': (context) => InputManual(),
-        '/OutputManual': (context) => OutputManual()
         
       },
     );

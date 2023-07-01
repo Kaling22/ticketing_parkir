@@ -26,17 +26,22 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        if (json['code'] == 0) {
-          var token = json['data']['Token'];
+        if (json['success'] == true) {
+          var token = json['data']['token'];
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
-
+          print('Berhasil kayaknya');
+          
           emailController.clear();
           passwordController.clear();
-          Get.offAll(HomeScreen());
-        } else if (json['code'] == 1) {
+          await prefs?.setString('token', token);
+          Get.offAll(HomeScreen(token: token));
+          
+        } else if (json['success'] == false) {
+          print('Gagal cuy');
           throw jsonDecode(response.body)['message'];
         }
+        
       } else {
         throw jsonDecode(response.body)["Message"] ?? "Login Gagal";
         
@@ -53,5 +58,6 @@ class LoginController extends GetxController {
             );
           });
     }
+    
   }
 }

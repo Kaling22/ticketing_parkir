@@ -6,21 +6,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
 class InputManual extends StatefulWidget {
-  const InputManual({Key? key}) : super(key: key);
+  final String token;
+  const InputManual({Key? key, required this.token}) : super(key: key);
   @override
-  State<InputManual> createState() => _InputManualState();
+  State<InputManual> createState() => _InputManualState(token);
 }
 
 class _InputManualState extends State<InputManual> {
 
   Map? data;
   String? uri;
-  
+  String? token;
   final TextEditingController _inputController = TextEditingController();
-  var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  var nm = '1918004';
-
-
+  var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.mahasiswa;
+  _InputManualState(this.token);
+  //var token1 = InputManual.token;
 String tex() {
   var para = _inputController.text;
   //await initStat();
@@ -33,12 +33,9 @@ Future<void> text () async{
 
     Future <void> initStat()async{
       //final alamat = apiURL + nm;
-      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json'});
+      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      //getRefreshData(alamat);
-      //super.initState();
-      //return data;
       print(data);
       await modal();
   }
@@ -105,7 +102,6 @@ Future<void> text () async{
               child: TextButton(
                   onPressed: () async =>{
                     initStat(),
-                   // ,
                     },
                   child: const Text(
                     "Simpan",
@@ -147,22 +143,23 @@ Future<void> text () async{
                   ),
                 ),
                 const Text('Data Mahasiswa'),
+                data == null ? Text('Data Kosong') :
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: 
                     Image.network(
-                      ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
+                      ApiEndPoints.baseUrlimg+data!['foto'].toString(),
                       height: 80,
                       width: 80,
                     ),
                     
                 ),
-                data == null ? Text('Data Kosong') :
+                
                 Text(data!['nim'].toString()),
-                Text(data!['mahasiswa']['name'].toString()),
-                Text(data!['mahasiswa']['angkatan'].toString()),
-                Text(data!['mahasiswa']['jurusan'].toString()),
-                Text(data!['mahasiswa']['fakultas'].toString()),
+                Text(data!['name'].toString()),
+                Text(data!['angkatan'].toString()),
+                Text(data!['jurusan'].toString()),
+                Text(data!['fakultas'].toString()),
                 Container(
             
                   child:  Row(
@@ -171,7 +168,7 @@ Future<void> text () async{
                     children: <Widget>[
                       ElevatedButton(
                       child: const Text('Kirim Data'),
-                      onPressed: () => Navigator.pop(context, '/Input'),
+                      onPressed: () => {}//Navigator.pop(context, '/Input')
                       ),
                       Padding(padding: const EdgeInsets.all(10)),
                       ElevatedButton(

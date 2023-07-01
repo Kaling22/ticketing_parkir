@@ -30,7 +30,7 @@ class InputController extends GetxController {
           var token = json['data']['Token'];
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
-          Get.offAll(HomeScreen());
+          Get.offAll(HomeScreen(token: token,));
         } else if (json['code'] == 1) {
           throw jsonDecode(response.body)['message'];
         }

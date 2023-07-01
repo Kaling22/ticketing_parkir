@@ -6,21 +6,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
 class OutputManual extends StatefulWidget {
-  const OutputManual({Key? key}) : super(key: key);
+  final String token;
+  const OutputManual({Key? key, required this.token}) : super(key: key);
   @override
-  State<OutputManual> createState() => _OutputManualState();
+  State<OutputManual> createState() => _OutputManualState(token);
 }
 
 class _OutputManualState extends State<OutputManual> {
 
   Map? data;
   String? uri;
-  
+  String? token;
   final TextEditingController _inputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  var nm = '1918004';
-
-
+  _OutputManualState(this.token);
+  //var token1 = OutputManual.token;
 String tex() {
   var para = _inputController.text;
   //await initStat();
@@ -33,12 +33,9 @@ Future<void> text () async{
 
     Future <void> initStat()async{
       //final alamat = apiURL + nm;
-      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json'});
+      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      //getRefreshData(alamat);
-      //super.initState();
-      //return data;
       print(data);
       await modal();
   }
@@ -105,7 +102,6 @@ Future<void> text () async{
               child: TextButton(
                   onPressed: () async =>{
                     initStat(),
-                   // ,
                     },
                   child: const Text(
                     "Simpan",
@@ -147,17 +143,18 @@ Future<void> text () async{
                   ),
                 ),
                 const Text('Data Mahasiswa'),
+                data == null ? Text('Data Kosong') :
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: 
                     Image.network(
-                      ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
+                      ApiEndPoints.baseUrlimg+data!['foto'].toString(),
                       height: 80,
                       width: 80,
                     ),
                     
                 ),
-                data == null ? Text('Data Kosong') :
+                
                 Text(data!['nim'].toString()),
                 Text(data!['mahasiswa']['name'].toString()),
                 Text(data!['mahasiswa']['angkatan'].toString()),
@@ -171,12 +168,12 @@ Future<void> text () async{
                     children: <Widget>[
                       ElevatedButton(
                       child: const Text('Kirim Data'),
-                      onPressed: () => Navigator.pop(context, '/Output'),
+                      onPressed: () => {}//Navigator.pop(context, '/Input')
                       ),
                       Padding(padding: const EdgeInsets.all(10)),
                       ElevatedButton(
                         child: const Text('Batal'),
-                        onPressed: () => Navigator.pop(context, '/Output'),
+                        onPressed: () => Navigator.pop(context, '/Input'),
                       ),
                     ],
                   ),

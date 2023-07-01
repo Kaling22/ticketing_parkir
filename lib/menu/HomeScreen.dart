@@ -2,8 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
+import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
+class HomeScreen extends StatefulWidget {
+  final String token;
+  const HomeScreen({Key? key, required this.token}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState(token);
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String? token;
+  _HomeScreenState(this.token);
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +62,13 @@ class HomeScreen extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisCount: 2,
         children: <Widget>[
-          new GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/Input');
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context, MaterialPageRoute(
+                builder: (context) => InputKendaraanScreen(token: widget.token)));
             },
-            child: new Container(
+            child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                   border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
@@ -90,8 +103,10 @@ class HomeScreen extends StatelessWidget {
           ),
           new GestureDetector(
             
-            onTap: () {
-              Navigator.pushNamed(context, '/Output');
+            onTap: (){
+              Navigator.push(
+                context, MaterialPageRoute(
+                builder: (context) => OutputKendaraanScreen(token: widget.token)));
             },
             child: new Container(
               padding: const EdgeInsets.all(8),
@@ -138,6 +153,7 @@ class HomeScreen extends StatelessWidget {
 
   TextStyle subTitle() => TextStyle(
       fontWeight: FontWeight.w500, color: Color.fromARGB(255, 0, 0, 0));
+
   TextStyle titleStyle() {
     return TextStyle(
         color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w700);

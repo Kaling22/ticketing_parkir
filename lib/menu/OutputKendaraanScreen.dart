@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ticketing_parkir/menu/InputManual.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 
-class OutputKendaraanScreen extends StatelessWidget {
-  OutputKendaraanScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class OutputKendaraanScreen extends StatefulWidget {
+  final String token;
+  OutputKendaraanScreen({Key? key, required this.token}) : super(key: key);
 
+  @override
+  State<OutputKendaraanScreen> createState() => _OutputKendaraanScreenState(token);
+}
+
+class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
+  String? token;
+  _OutputKendaraanScreenState(this.token);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Keluar"),
+        title: Text("Masuk"),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -23,7 +33,7 @@ class OutputKendaraanScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Kendaraan Keluar',
+              'Kendaraan Masuk',
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -32,25 +42,6 @@ class OutputKendaraanScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            // Container(
-            //   height: 50,
-            //   width: double.infinity,
-            //   padding: EdgeInsets.all(16),
-            //   decoration: BoxDecoration(
-            //       border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   child: TextFormField(
-            //     keyboardType: TextInputType.number,
-            //     controller: _nimController,
-            //     style: TextStyle(color: Colors.white),
-            //     decoration: InputDecoration.collapsed(
-            //         hintText: "NIM",
-            //         hintStyle: TextStyle(color: Colors.white)),
-            //   ),
-            // ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
             Container(
               height: 50,
               width: double.infinity,
@@ -60,7 +51,9 @@ class OutputKendaraanScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/OutputManual');
+                    Navigator.push(
+                      context, MaterialPageRoute(
+                      builder: (context) => InputManual(token: widget.token)));
                   },
                   child: const Text(
                     "Input NIM Manual",
@@ -69,27 +62,6 @@ class OutputKendaraanScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   )),
             ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            // Container(
-            //   height: 50,
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //       color: Color.fromARGB(255, 255, 255, 255),
-            //       border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   child: TextButton(
-            //       onPressed: (){
-            //         Navigator.pushNamed(context, '/Home');
-            //       },
-            //       child: const Text(
-            //         "Simpan",
-            //         style: TextStyle(
-            //             color: Color.fromARGB(255, 17, 17, 17),
-            //             fontWeight: FontWeight.w500),
-            //       )),
-            // ),
           ],
         ),
       )),

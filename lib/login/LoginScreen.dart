@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:ticketing_parkir/menu/HomeScreen.dart';
 import 'package:ticketing_parkir/controllers/login_controller.dart';
 
 // ignore: must_be_immutable
@@ -85,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/Home');
+                  Navigator.pop(const HomeScreen(token: '') as BuildContext);
                 },
                 child: Text(
                   textAlign: TextAlign.left,
@@ -112,7 +114,6 @@ class LoginScreen extends StatelessWidget {
                   
                   onPressed: () => {
                     loginController.loginWithEmail(),
-                    Navigator.pushNamed(context, '/Home')
                   },
                   child: const Text(
                     "Login",

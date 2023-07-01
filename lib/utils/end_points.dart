@@ -9,6 +9,7 @@ class _AuthEndPoints {
   final String logoutEmail = 'logout';
   
   final String park = 'parkir/';
+  final String mahasiswa = 'mahasiswa/';
   // static String getProfiledetails(String para) {
   //   return ApiEndPoints.baseUrl + "parkir/${para}";
   // }
