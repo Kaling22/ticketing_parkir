@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 // import 'package:ticketing_parkir/model/mahasiswa_model.dart';
 import 'package:http/http.dart' as http;
@@ -7,19 +9,22 @@ import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
 class InputManual extends StatefulWidget {
   final String token;
-  const InputManual({Key? key, required this.token}) : super(key: key);
+  final String id;
+  const InputManual({Key? key, required this.token, required this.id}) : super(key: key);
   @override
-  State<InputManual> createState() => _InputManualState(token);
+  State<InputManual> createState() => _InputManualState(token, id);
 }
 
 class _InputManualState extends State<InputManual> {
 
   Map? data;
   String? uri;
-  String? token;
+  String token;
+  String id;
   final TextEditingController _inputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.mahasiswa;
-  _InputManualState(this.token);
+  var apiURLCreate = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
+  _InputManualState(this.token, this.id);
   //var token1 = InputManual.token;
 String tex() {
   var para = _inputController.text;
@@ -40,7 +45,42 @@ Future<void> text () async{
       await modal();
   }
   
-  
+  Future<void> createData() async {
+    // Your API endpoint URL
+    final url = Uri.parse(apiURLCreate);
+
+    // Data to be sent in the request body
+    // final dataCreate = {
+    //   'nim': data!['nim'].toString(),
+    //   'nfc_num': data!['nfc_num'].toString(),
+    //   'nfc_num_ktp': data!['nfc_num_ktp'].toString(),
+    //   'created_by': id,
+    // };
+    Map<String, dynamic> requestBody= {
+      'nim': data!['nim'],
+      'nfc_num': data!['nfc_num'],
+      'nfc_num_ktp': data!['nfc_num_ktp'],
+      'created_by': id,
+    };
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json','Authorization': 'Bearer $token'},
+        body: json.encode(requestBody),
+      );
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('POST request succeeded');
+      } else {
+        // Request failed
+        print('POST request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception occurred during the request
+      print('Error: $e');
+    }
+  }
   
 
 
@@ -152,7 +192,6 @@ Future<void> text () async{
                       height: 80,
                       width: 80,
                     ),
-                    
                 ),
                 
                 Text(data!['nim'].toString()),
@@ -160,6 +199,7 @@ Future<void> text () async{
                 Text(data!['angkatan'].toString()),
                 Text(data!['jurusan'].toString()),
                 Text(data!['fakultas'].toString()),
+                Text(id!),
                 Container(
             
                   child:  Row(
@@ -168,12 +208,14 @@ Future<void> text () async{
                     children: <Widget>[
                       ElevatedButton(
                       child: const Text('Kirim Data'),
-                      onPressed: () => {}//Navigator.pop(context, '/Input')
+                      onPressed: () {
+                        createData();
+                        Get.off(InputKendaraanScreen(token: token, id:id));}
                       ),
                       Padding(padding: const EdgeInsets.all(10)),
                       ElevatedButton(
                         child: const Text('Batal'),
-                        onPressed: () => Navigator.pop(context, '/Input'),
+                        onPressed: () => Get.back(),
                       ),
                     ],
                   ),

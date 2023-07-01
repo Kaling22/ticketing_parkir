@@ -5,15 +5,17 @@ import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 // ignore: must_be_immutable
 class InputKendaraanScreen extends StatefulWidget {
   final String token;
-  InputKendaraanScreen({Key? key, required this.token}) : super(key: key);
+  final String id;
+  InputKendaraanScreen({Key? key, required this.token, required this.id}) : super(key: key);
 
   @override
-  State<InputKendaraanScreen> createState() => _InputKendaraanScreenState(token);
+  State<InputKendaraanScreen> createState() => _InputKendaraanScreenState(token,id);
 }
 
 class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   String? token;
-  _InputKendaraanScreenState(this.token);
+  String? id;
+  _InputKendaraanScreenState(this.token, this.id);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +55,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                   onPressed: (){
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => InputManual(token: widget.token)));
+                      builder: (context) => InputManual(token: widget.token, id:widget.id)));
                   },
                   child: const Text(
                     "Input NIM Manual",

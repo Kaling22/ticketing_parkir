@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
 // import 'package:ticketing_parkir/model/mahasiswa_model.dart';
 import 'package:http/http.dart' as http;
@@ -7,22 +9,24 @@ import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
 class OutputManual extends StatefulWidget {
   final String token;
-  const OutputManual({Key? key, required this.token}) : super(key: key);
+  final String id;
+  const OutputManual({Key? key, required this.token, required this.id}) : super(key: key);
   @override
-  State<OutputManual> createState() => _OutputManualState(token);
+  State<OutputManual> createState() => _OutputManualState(token, id);
 }
 
 class _OutputManualState extends State<OutputManual> {
 
   Map? data;
   String? uri;
-  String? token;
-  final TextEditingController _inputController = TextEditingController();
+  String token;
+  String id;
+  final TextEditingController _OutputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  _OutputManualState(this.token);
+  _OutputManualState(this.token, this.id);
   //var token1 = OutputManual.token;
 String tex() {
-  var para = _inputController.text;
+  var para = _OutputController.text;
   //await initStat();
   return para;
 }
@@ -40,7 +44,31 @@ Future<void> text () async{
       await modal();
   }
   
-  
+  Future<void> updateData() async {
+    // Your API endpoint URL
+    final url = Uri.parse(apiURL + tex());
+
+    // Data to be sent in the request body
+    final dataUpdate = {'updated_by': id};
+    try {
+      final response = await http.put(
+        url,
+        headers: {'Content-Type': 'application/json','Authorization': 'Bearer $token'},
+        body: json.encode(dataUpdate),
+      );
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('PUT request succeeded');
+      } else {
+        // Request failed
+        print('PUT request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception occurred during the request
+      print('Error: $e');
+    }
+  }
   
 
 
@@ -48,7 +76,7 @@ Future<void> text () async{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Masuk"),
+        title: Text("Keluar"),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,7 +91,7 @@ Future<void> text () async{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Kendaraan Masuk',
+              'Kendaraan Keluar',
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -81,7 +109,7 @@ Future<void> text () async{
                   borderRadius: BorderRadius.circular(10)),
               child: TextFormField(
                 keyboardType: TextInputType.number,
-                controller: _inputController,
+                controller: _OutputController,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration.collapsed(
                     hintText: "NIM",
@@ -148,7 +176,7 @@ Future<void> text () async{
                   padding: const EdgeInsets.all(15.0),
                   child: 
                     Image.network(
-                      ApiEndPoints.baseUrlimg+data!['foto'].toString(),
+                      ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
                       height: 80,
                       width: 80,
                     ),
@@ -168,12 +196,14 @@ Future<void> text () async{
                     children: <Widget>[
                       ElevatedButton(
                       child: const Text('Kirim Data'),
-                      onPressed: () => {}//Navigator.pop(context, '/Input')
+                      onPressed: () {
+                        updateData();
+                        Get.off(OutputKendaraanScreen(token: token, id:id));}
                       ),
                       Padding(padding: const EdgeInsets.all(10)),
                       ElevatedButton(
                         child: const Text('Batal'),
-                        onPressed: () => Navigator.pop(context, '/Input'),
+                        onPressed: () => Get.back(),
                       ),
                     ],
                   ),

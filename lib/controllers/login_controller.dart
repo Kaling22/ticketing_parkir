@@ -27,15 +27,21 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         if (json['success'] == true) {
+          
+
           var token = json['data']['token'];
+          var idpetugas = json['data']['id'].toString();
+          
           final SharedPreferences? prefs = await _prefs;
           await prefs?.setString('token', token);
+          await prefs?.setString('id', idpetugas);
+
           print('Berhasil kayaknya');
-          
+          print(idpetugas);
+
           emailController.clear();
           passwordController.clear();
-          await prefs?.setString('token', token);
-          Get.offAll(HomeScreen(token: token));
+          Get.offAll(HomeScreen(token: token, id:idpetugas));
           
         } else if (json['success'] == false) {
           print('Gagal cuy');

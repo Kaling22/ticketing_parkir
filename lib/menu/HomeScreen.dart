@@ -6,15 +6,17 @@ import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
 import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 class HomeScreen extends StatefulWidget {
   final String token;
-  const HomeScreen({Key? key, required this.token}) : super(key: key);
+  final String id;
+  const HomeScreen({Key? key, required this.token, required this.id}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState(token);
+  State<HomeScreen> createState() => _HomeScreenState(token, id);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   String? token;
-  _HomeScreenState(this.token);
+  String? id;
+  _HomeScreenState(this.token, this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (){
               Navigator.push(
                 context, MaterialPageRoute(
-                builder: (context) => InputKendaraanScreen(token: widget.token)));
+                builder: (context) => InputKendaraanScreen(token: widget.token, id:widget.id)));
             },
             child: Container(
               padding: const EdgeInsets.all(8),
@@ -106,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (){
               Navigator.push(
                 context, MaterialPageRoute(
-                builder: (context) => OutputKendaraanScreen(token: widget.token)));
+                builder: (context) => OutputKendaraanScreen(token: widget.token, id: widget.id,)));
             },
             child: new Container(
               padding: const EdgeInsets.all(8),
