@@ -83,7 +83,7 @@ Future<void> text () async{
           )
         ],
       ),
-      drawer: DrawerScreen(),
+      drawer: DrawerScreen(token: token,),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),

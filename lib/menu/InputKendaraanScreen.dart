@@ -13,8 +13,8 @@ class InputKendaraanScreen extends StatefulWidget {
 }
 
 class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
-  String? token;
-  String? id;
+  String token;
+  String id;
   _InputKendaraanScreenState(this.token, this.id);
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
           )
         ],
       ),
-      drawer: DrawerScreen(),
+      drawer: DrawerScreen(token: token),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),

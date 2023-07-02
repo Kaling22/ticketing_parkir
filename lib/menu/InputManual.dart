@@ -48,14 +48,6 @@ Future<void> text () async{
   Future<void> createData() async {
     // Your API endpoint URL
     final url = Uri.parse(apiURLCreate);
-
-    // Data to be sent in the request body
-    // final dataCreate = {
-    //   'nim': data!['nim'].toString(),
-    //   'nfc_num': data!['nfc_num'].toString(),
-    //   'nfc_num_ktp': data!['nfc_num_ktp'].toString(),
-    //   'created_by': id,
-    // };
     Map<String, dynamic> requestBody= {
       'nim': data!['nim'],
       'nfc_num': data!['nfc_num'],
@@ -95,7 +87,7 @@ Future<void> text () async{
           )
         ],
       ),
-      drawer: DrawerScreen(),
+      drawer: DrawerScreen(token: token),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),

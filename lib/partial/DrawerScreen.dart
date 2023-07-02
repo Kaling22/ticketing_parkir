@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:ticketing_parkir/login/LoginScreen.dart';
+import 'package:ticketing_parkir/utils/end_points.dart';
 
 class DrawerScreen extends StatefulWidget {
-  const DrawerScreen({super.key});
+  final token;
+
+  const DrawerScreen({super.key, required this.token});
 
   @override
-  State<DrawerScreen> createState() => _DrawerScreenState();
+  State<DrawerScreen> createState() => _DrawerScreenState(token);
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  String token;
+  _DrawerScreenState(this.token);
+
+  // Method to Logout
+  Future<void> logout() async {
+    // Your API endpoint URL
+    var apiURL = ApiEndPoints.baseUrl+ApiEndPoints.authEndPoints.logoutEmail;
+    final url = Uri.parse(apiURL);
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json','Authorization': 'Bearer $token'},
+      );
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('Logout succeeded');
+      } else {
+        // Request failed
+        print('Logout failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception occurred during the request
+      print('Error: $e');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +57,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
           accountEmail: Text('User E-mail'),
         ),
         DrawerListTile(
-            iconData: Icons.logout,
-            title: "Log-Out",
-            onTilePressed: () => Navigator.pop(context, '/Login'))    
+          iconData: Icons.logout,
+          title: "Log-Out",
+          onTilePressed: () => {
+            logout(),
+            Get.offAll(LoginScreen())
+          }
+        )    
       ],
     ));
   }

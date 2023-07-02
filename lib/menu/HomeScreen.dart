@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? token;
-  String? id;
+  String token;
+  String id;
   _HomeScreenState(this.token, this.id);
 
   @override
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      drawer: DrawerScreen(),
+      drawer: DrawerScreen(token: token),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(16),

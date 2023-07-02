@@ -13,8 +13,8 @@ class OutputKendaraanScreen extends StatefulWidget {
 }
 
 class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
-  String? token;
-  String? id;
+  String token;
+  String id;
   _OutputKendaraanScreenState(this.token, this.id);
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
           )
         ],
       ),
-      drawer: DrawerScreen(),
+      drawer: DrawerScreen(token: token),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
