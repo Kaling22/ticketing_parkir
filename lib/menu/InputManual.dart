@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
-// import 'package:ticketing_parkir/model/mahasiswa_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
@@ -26,15 +25,15 @@ class _InputManualState extends State<InputManual> {
   var apiURLCreate = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
   _InputManualState(this.token, this.id);
   //var token1 = InputManual.token;
-String tex() {
-  var para = _inputController.text;
-  //await initStat();
-  return para;
-}
-Future<void> text () async{
-  tex();
-  await initStat();
-}
+  String tex() {
+    var para = _inputController.text;
+    //await initStat();
+    return para;
+  }
+  Future<void> text () async{
+    tex();
+    await initStat();
+  }
 
     Future <void> initStat()async{
       //final alamat = apiURL + nm;

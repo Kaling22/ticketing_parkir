@@ -19,11 +19,6 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: '/',
       home: LoginScreen(),
-      routes: <String, WidgetBuilder>{
-        //'/Input': (context) => HomeScreen(),
-        '/Login': (context) => LoginScreen(),
-        
-      },
     );
   }
 }

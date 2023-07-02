@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 import 'package:ticketing_parkir/partial/DrawerScreen.dart';
-// import 'package:ticketing_parkir/model/mahasiswa_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ticketing_parkir/utils/end_points.dart';
@@ -27,10 +25,9 @@ class _OutputManualState extends State<OutputManual> {
   //var token1 = OutputManual.token;
 String tex() {
   var para = _OutputController.text;
-  //await initStat();
   return para;
 }
-Future<void> text () async{
+Future<void> text() async{
   tex();
   await initStat();
 }
@@ -39,7 +36,7 @@ Future<void> text () async{
       //final alamat = apiURL + nm;
       var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
-        data = convertDataToJson['data'];
+      data = convertDataToJson['data'];
       print(data);
       await modal();
   }
