@@ -14,22 +14,28 @@ import 'dart:convert';
 class InputKendaraanScreen extends StatefulWidget {
   final String token;
   final String id;
-  InputKendaraanScreen({Key? key, required this.token, required this.id}) : super(key: key);
+  final String name;
+  final String email;
+  InputKendaraanScreen({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
 
   @override
-  State<InputKendaraanScreen> createState() => _InputKendaraanScreenState(token,id);
+  State<InputKendaraanScreen> createState() => _InputKendaraanScreenState(token,id,name,email);
 }
 
 class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   String token;
   String id;
+  String name;
+  String email;
   String? nfc;
   var nfcNumber;
+  Map? dataParkir;
   Map? data;
   String? uri;
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.mahasiswa;
+  var apiURLParkir = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
   var apiURLCreate = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  _InputKendaraanScreenState(this.token, this.id);
+  _InputKendaraanScreenState(this.token, this.id,this.name,this.email);
 
   @override
     void initState() {
@@ -66,7 +72,9 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   }
   Future<void> text () async{
     tex();
+    await getDataParkir();
     await initStat();
+    await modal();
   }
 
   Future <void> initStat()async{
@@ -74,10 +82,17 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
       var respons = await http.get(Uri.parse(apiURL + nfcNumber), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      print(data);
-      await modal();
+      // print(data);
+      // await modal();
   }
-  
+  Future <void> getDataParkir()async{
+      //final alamat = apiURL + nm;
+      var respons = await http.get(Uri.parse(apiURLParkir + nfcNumber), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
+      var convertDataToJson = jsonDecode(respons.body);
+        dataParkir = convertDataToJson['data'];
+     // print(dataParkir);
+      //await modal();
+    }
   Future<void> createData() async {
     // Your API endpoint URL
     final url = Uri.parse(apiURLCreate);
@@ -119,7 +134,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
           )
         ],
       ),
-      drawer: DrawerScreen(token: token),
+      drawer: DrawerScreen(token: token,id: id, name: name, email: email,),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
@@ -147,7 +162,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                   onPressed: (){
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => InputManual(token: widget.token, id:widget.id)));
+                      builder: (context) => InputManual(token: widget.token, id:widget.id, name: widget.name,email: widget.email,)));
                   },
                   child: const Text(
                     "Input NIM Manual",
@@ -172,64 +187,129 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
       builder: (BuildContext context) {
         return SizedBox(
           height: 723,
-          child: Container(
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(150.0, 20.0, 150.0, 20.0),
-                  child: Container(
-                    height: 8.0,
-                    width: 80.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(const Radius.circular(8.0))
-                    ),
-                  ),
-                ),
-                const Text('Data Mahasiswa'),
-                data == null ? Text('Data Kosong') :
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: 
-                    Image.network(
-                      ApiEndPoints.baseUrlimg+data!['foto'].toString(),
-                      height: 80,
-                      width: 80,
-                    ),
-                    
-                ),
-                
-                Text(data!['nim'].toString()),
-                Text(data!['name'].toString()),
-                Text(data!['angkatan'].toString()),
-                Text(data!['jurusan'].toString()),
-                Text(data!['fakultas'].toString()),
-                Container(
-            
-                  child:  Row(
+          child: 
+            dataParkir!['status_masuk']==1
+                ? Center(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ElevatedButton(
-                      child: const Text('Kirim Data'),
-                      onPressed: () {
-                        createData();
-                        Get.off(InputKendaraanScreen(token: token, id:id));}
+                    children: [
+                      Image.asset(
+                        'assets/images/warning.png',
+                        height: 80,
+                        width: 80,
                       ),
-                      Padding(padding: const EdgeInsets.all(10)),
+                      Text('Kendaraan Masih Terparkir Di Wilayah Kampus'),
                       ElevatedButton(
                         child: const Text('Batal'),
                         onPressed: () => Get.back(),
                       ),
                     ],
+                  
                   ),
+                  
                 )
                 
-              ],
+                :Container(
+                child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(150.0, 20.0, 150.0, 20.0),
+                    child: Container(
+                      height: 8.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.all(const Radius.circular(8.0))
+                      ),
+                    ),
+                  ),
+                  const Text('Data Mahasiswa'),
+                  Container(
+                    child: Column(
+                      children: [
+                        data == null ? Text('Data Kosong') :
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: 
+                            Image.network(
+                              ApiEndPoints.baseUrlimg+data!['foto'].toString(),
+                              height: 150,
+                              //width: ,
+                            ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ListView(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          children: [
+                            ListTile(
+                                title: Text("NIM"),
+                                subtitle: Text(data!['nim'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                              ),
+                            ListTile(
+                              title: Text("Nama"),
+                              subtitle: Text(data!['name'].toString()) ,
+                              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Angkatan"),
+                                subtitle: Text(data!['angkatan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Jurusan"),
+                                subtitle: Text(data!['jurusan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                              title: Text("Fakultas"),
+                              subtitle: Text(data!['fakultas'].toString()) ,
+                              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Nomer Kendaraan"),
+                                subtitle: Text(data!['kendaraan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ],
+                    )
+                  ),
+                  
+                  Container(
+              
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ElevatedButton(
+                        child: const Text('Kirim Data'),
+                        onPressed: () {
+                          createData();
+                          Get.back();
+                          //Get.off(InputKendaraanScreen(token: token, id:id));
+                          }
+                        ),
+                        Padding(padding: const EdgeInsets.all(10)),
+                        ElevatedButton(
+                          child: const Text('Batal'),
+                          onPressed: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                  )
+                  
+                ],
+              ),
             ),
-          ),
         );
       },
     );

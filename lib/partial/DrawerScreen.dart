@@ -3,20 +3,27 @@ import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:ticketing_parkir/login/LoginScreen.dart';
+import 'package:ticketing_parkir/menu/InputKendaraanScreen.dart';
+import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 import 'package:ticketing_parkir/utils/end_points.dart';
 
 class DrawerScreen extends StatefulWidget {
   final token;
-
-  const DrawerScreen({super.key, required this.token});
+  final id;
+  final name;
+  final email;
+  const DrawerScreen({super.key, required this.token, required this.id,required this.name, required this.email});
 
   @override
-  State<DrawerScreen> createState() => _DrawerScreenState(token);
+  State<DrawerScreen> createState() => _DrawerScreenState(token,id,name,email);
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
   String token;
-  _DrawerScreenState(this.token);
+  String id;
+  String name;
+  String email;
+  _DrawerScreenState(this.token, this.id, this.name,this.email);
 
   // Method to Logout
   Future<void> logout() async {
@@ -51,10 +58,24 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: ListView(
       children: <Widget>[
         UserAccountsDrawerHeader(
-          accountName: Text('user'),
+          accountName: Text(name),
           currentAccountPicture:
-              CircleAvatar(backgroundImage: AssetImage("assets/images/parkir_icon.jpg")),
-          accountEmail: Text('User E-mail'),
+              CircleAvatar(backgroundImage: AssetImage("assets/images/user.png")),
+          accountEmail: Text(email),
+        ),
+        DrawerListTile(
+          iconData: Icons.add_circle_outline,
+          title: "Kendaraan Masuk",
+          onTilePressed: () => {
+            Get.to(InputKendaraanScreen(token: token, id:id, name: name, email: email,))
+          }
+        ),
+        DrawerListTile(
+          iconData: Icons.highlight_remove_rounded,
+          title: "Kendaraan Keluar",
+          onTilePressed: () => {
+            Get.to(OutputKendaraanScreen(token: token, id:id, name: name, email: email))
+          }
         ),
         DrawerListTile(
           iconData: Icons.logout,
@@ -63,7 +84,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
             logout(),
             Get.offAll(LoginScreen())
           }
-        )    
+        ),
+        
       ],
     ));
   }

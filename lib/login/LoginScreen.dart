@@ -87,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(const HomeScreen(token: '',id: '',) as BuildContext);
+                  Navigator.pop(const HomeScreen(token: '',id: '',name: '', email:'') as BuildContext);
                 },
                 child: Text(
                   textAlign: TextAlign.left,

@@ -7,16 +7,20 @@ import 'package:ticketing_parkir/menu/OutputKendaraanScreen.dart';
 class HomeScreen extends StatefulWidget {
   final String token;
   final String id;
-  const HomeScreen({Key? key, required this.token, required this.id}) : super(key: key);
+  final String name;
+  final String email;
+  const HomeScreen({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState(token, id);
+  State<HomeScreen> createState() => _HomeScreenState(token, id,name,email);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   String token;
   String id;
-  _HomeScreenState(this.token, this.id);
+  String name;
+  String email;
+  _HomeScreenState(this.token, this.id,this.name,this.email);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      drawer: DrawerScreen(token: token),
+      drawer: DrawerScreen(token: token,id: id, name: name, email: email,),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(16),
@@ -68,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (){
               Navigator.push(
                 context, MaterialPageRoute(
-                builder: (context) => InputKendaraanScreen(token: widget.token, id:widget.id)));
+                builder: (context) => InputKendaraanScreen(token: widget.token, id:widget.id,name: widget.name, email:widget.email)));
             },
             child: Container(
               padding: const EdgeInsets.all(8),
@@ -108,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (){
               Navigator.push(
                 context, MaterialPageRoute(
-                builder: (context) => OutputKendaraanScreen(token: widget.token, id: widget.id,)));
+                builder: (context) => OutputKendaraanScreen(token: widget.token, id: widget.id,name: name,email: email,)));
             },
             child: new Container(
               padding: const EdgeInsets.all(8),

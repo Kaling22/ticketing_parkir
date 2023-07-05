@@ -8,9 +8,11 @@ import 'package:ticketing_parkir/utils/end_points.dart';
 class OutputManual extends StatefulWidget {
   final String token;
   final String id;
-  const OutputManual({Key? key, required this.token, required this.id}) : super(key: key);
+  final String name;
+  final String email;
+  const OutputManual({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
   @override
-  State<OutputManual> createState() => _OutputManualState(token, id);
+  State<OutputManual> createState() => _OutputManualState(token, id,name,email);
 }
 
 class _OutputManualState extends State<OutputManual> {
@@ -19,9 +21,11 @@ class _OutputManualState extends State<OutputManual> {
   String? uri;
   String token;
   String id;
+  String name;
+  String email;
   final TextEditingController _OutputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  _OutputManualState(this.token, this.id);
+  _OutputManualState(this.token, this.id,this.name,this.email);
   //var token1 = OutputManual.token;
 String tex() {
   var para = _OutputController.text;
@@ -30,6 +34,7 @@ String tex() {
 Future<void> text() async{
   tex();
   await initStat();
+  await modal();
 }
 
     Future <void> initStat()async{
@@ -38,7 +43,7 @@ Future<void> text() async{
       var convertDataToJson = jsonDecode(respons.body);
       data = convertDataToJson['data'];
       print(data);
-      await modal();
+      //await modal();
   }
   
   Future<void> updateData() async {
@@ -80,7 +85,7 @@ Future<void> text() async{
           )
         ],
       ),
-      drawer: DrawerScreen(token: token,),
+      drawer: DrawerScreen(token: token,id: id, name: name, email: email,),
       body: Container(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
@@ -126,7 +131,7 @@ Future<void> text() async{
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: () async =>{
-                    initStat(),
+                    text(),
                     },
                   child: const Text(
                     "Simpan",
@@ -149,66 +154,126 @@ Future<void> text() async{
         borderRadius: BorderRadius.circular(18.0),
       ),
       builder: (BuildContext context) {
-        return SizedBox(
+       return SizedBox(
           height: 723,
-          child: Container(
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(150.0, 20.0, 150.0, 20.0),
-                  child: Container(
-                    height: 8.0,
-                    width: 80.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(const Radius.circular(8.0))
-                    ),
-                  ),
-                ),
-                const Text('Data Mahasiswa'),
-                data == null ? Text('Data Kosong') :
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: 
-                    Image.network(
-                      ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
-                      height: 80,
-                      width: 80,
-                    ),
-                    
-                ),
-                
-                Text(data!['nim'].toString()),
-                Text(data!['mahasiswa']['name'].toString()),
-                Text(data!['mahasiswa']['angkatan'].toString()),
-                Text(data!['mahasiswa']['jurusan'].toString()),
-                Text(data!['mahasiswa']['fakultas'].toString()),
-                Container(
-            
-                  child:  Row(
+          child: 
+            data!['status_keluar']==1
+                ? Center(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ElevatedButton(
-                      child: const Text('Kirim Data'),
-                      onPressed: () {
-                        updateData();
-                        Get.off(OutputKendaraanScreen(token: token, id:id));}
+                    children: [
+                      Image.asset(
+                        'assets/images/warning.png',
+                        height: 80,
+                        width: 80,
                       ),
-                      Padding(padding: const EdgeInsets.all(10)),
+                      Text('Kendaraan Belum Terparkir Di Wilayah Kampus'),
                       ElevatedButton(
                         child: const Text('Batal'),
                         onPressed: () => Get.back(),
                       ),
-                    ],
+                    ]
                   ),
                 )
-                
-              ],
+                :Container(
+                child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(150.0, 20.0, 150.0, 20.0),
+                    child: Container(
+                      height: 8.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.all(const Radius.circular(8.0))
+                      ),
+                    ),
+                  ),
+                  const Text('Data Mahasiswa'),
+                  Container(
+                    child: Column(
+                      children: [
+                        data == null ? Text('Data Kosong') :
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: 
+                            Image.network(
+                              ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
+                              height: 150,
+                              //width: ,
+                            ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ListView(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          children: [
+                            ListTile(
+                                title: Text("NIM"),
+                                subtitle: Text(data!['nim'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                              ),
+                            ListTile(
+                              title: Text("Nama"),
+                              subtitle: Text(data!['mahasiswa']['name'].toString()) ,
+                              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Angkatan"),
+                                subtitle: Text(data!['mahasiswa']['angkatan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Jurusan"),
+                                subtitle: Text(data!['mahasiswa']['jurusan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                              title: Text("Fakultas"),
+                              subtitle: Text(data!['mahasiswa']['fakultas'].toString()) ,
+                              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            ListTile(
+                                title: Text("Nomer Kendaraan"),
+                                subtitle: Text(data!['kendaraan'].toString()) ,
+                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ],
+                    )
+                  ),
+                  
+                  Container(
+              
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ElevatedButton(
+                        child: const Text('Kirim Data'),
+                        onPressed: () {
+                          updateData();
+                          Get.off(OutputKendaraanScreen(token: token, id:id, name:name,email:email));}
+                        ),
+                        Padding(padding: const EdgeInsets.all(10)),
+                        ElevatedButton(
+                          child: const Text('Batal'),
+                          onPressed: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                  )
+                  
+                ],
+              ),
             ),
-          ),
         );
       },
     );
