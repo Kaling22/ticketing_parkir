@@ -35,6 +35,9 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
 
    @override
     void initState() {
+      if (mounted) { 
+        setState (() => _OutputKendaraanScreenState(token, id, name, email));
+      }
       super.initState();
       initNFCManager();
       //await text ();
@@ -125,38 +128,50 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Kendaraan Keluar',
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  color: Color.fromARGB(255, 255, 255, 255)),
+             Container(
+              child: Container(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  child: Text(
+                    "+ NIM", 
+                    style: TextStyle(
+                      color: Colors.black
+                    ),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context, MaterialPageRoute(
+                      builder: (context) => OutputManual(token: widget.token, id:widget.id, name: widget.name,email: widget.email,)));
+                  },
+                ),     
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              height: 50,
-              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2.0),
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context, MaterialPageRoute(
-                      builder: (context) => OutputManual(token: widget.token, id:widget.id, name: widget.name, email: widget.email,)));
-                  },
-                  child: const Text(
-                    "Input NIM Manual",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 17, 17, 17),
-                        fontWeight: FontWeight.w500),
-                  )),
+                border: Border.all(
+                  color: Color(0xFFDFDFDF)
+                ),
+                borderRadius: BorderRadius.circular(10),
+               color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: Text(
+              'Silahkan Lakukan Proses Scanning Kartu',
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromARGB(255, 0, 0, 0)),
             ),
+            ),
+            
           ],
         ),
       )),

@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    "assets/images/parkir_icon.jpg",
+                    "assets/images/parkir_icon.png",
                     height: 20,
                     width: 20,
                   ),
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    "assets/images/parkir_icon.jpg",
+                    "assets/images/parkir_icon.png",
                     height: 20,
                     width: 20,
                   ),

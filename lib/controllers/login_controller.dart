@@ -23,9 +23,9 @@ class LoginController extends GetxController {
       };
       http.Response response =
           await http.post(url, body: jsonEncode(body), headers: headers);
-
+    //var pdfText= await json.decode(json.encode(response.body)); 
       if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
+        final json = await jsonDecode(response.body);
         if (json['success'] == true) {
           
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:ticketing_parkir/menu/HomeScreen.dart';
+import 'package:flutter/services.dart';
 import 'package:ticketing_parkir/controllers/login_controller.dart';
 
+//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({key}) : super(key: key);
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Image.asset(
-                'assets/images/parkir_icon.jpg',
+                'assets/images/parkir_icon.png',
                 height: 80,
                 width: 80,
               ),
@@ -86,8 +87,13 @@ class LoginScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(const HomeScreen(token: '',id: '',name: '', email:'') as BuildContext);
+                onTap: () async{
+                  var url = 'https://ticketingparkir.com/forgot-password';
+                  if (await canLaunchUrlString(url)) {
+                          await launchUrlString(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
                 },
                 child: Text(
                   textAlign: TextAlign.left,

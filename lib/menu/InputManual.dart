@@ -28,7 +28,7 @@ class _InputManualState extends State<InputManual> {
   final TextEditingController _inputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.mahasiswa;
   var apiURLParkir = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  var apiURLCreate = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
+  var apiURLCreate = ApiEndPoints.baseUrl2 + ApiEndPoints.authEndPoints.park2;
   _InputManualState(this.token, this.id,this.name,this.email);
   //var token1 = InputManual.token;
   String tex() {
@@ -56,8 +56,6 @@ class _InputManualState extends State<InputManual> {
       var respons = await http.get(Uri.parse(apiURLParkir + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         dataParkir = convertDataToJson['data'];
-     // print(dataParkir);
-      //await modal();
     }
   
   Future<void> createData() async {

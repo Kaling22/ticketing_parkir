@@ -34,16 +34,19 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   String? uri;
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.mahasiswa;
   var apiURLParkir = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
-  var apiURLCreate = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
+  var apiURLCreate = ApiEndPoints.baseUrl2 + ApiEndPoints.authEndPoints.park2;
   _InputKendaraanScreenState(this.token, this.id,this.name,this.email);
 
   @override
     void initState() {
+      if (mounted) { 
+        setState (() => _InputKendaraanScreenState(token, id, name, email));
+      }
       super.initState();
       initNFCManager();
       //await text ();
     }
-
+  
   String fromBytesToInt32(int b3, int b2, int b1, int b0) {
     final int8List = new Int8List(4)
       ..[3] = b3
@@ -139,38 +142,50 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+         // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Kendaraan Masuk',
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  color: Color.fromARGB(255, 255, 255, 255)),
+            Container(
+              child: Container(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  child: Text(
+                    "+ NIM", 
+                    style: TextStyle(
+                      color: Colors.black
+                    ),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context, MaterialPageRoute(
+                      builder: (context) => InputManual(token: widget.token, id:widget.id, name: widget.name,email: widget.email,)));
+                  },
+                ),     
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              height: 50,
-              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2.0),
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  border: Border.all(color: Color.fromARGB(255, 255, 255, 255)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context, MaterialPageRoute(
-                      builder: (context) => InputManual(token: widget.token, id:widget.id, name: widget.name,email: widget.email,)));
-                  },
-                  child: const Text(
-                    "Input NIM Manual",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 17, 17, 17),
-                        fontWeight: FontWeight.w500),
-                  )),
+                border: Border.all(
+                  color: Color(0xFFDFDFDF)
+                ),
+                borderRadius: BorderRadius.circular(10),
+               color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: Text(
+              'Silahkan Lakukan Proses Scanning Kartu',
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromARGB(255, 0, 0, 0)),
             ),
+            ),
+            
           ],
         ),
       )),
