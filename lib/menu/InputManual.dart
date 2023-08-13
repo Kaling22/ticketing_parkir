@@ -30,36 +30,30 @@ class _InputManualState extends State<InputManual> {
   var apiURLParkir = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
   var apiURLCreate = ApiEndPoints.baseUrl2 + ApiEndPoints.authEndPoints.park2;
   _InputManualState(this.token, this.id,this.name,this.email);
-  //var token1 = InputManual.token;
-  String tex() {
+
+  String param() {
     var para = _inputController.text;
-    //await initStat();
     return para;
   }
-  Future<void> text () async{
-    tex();
+  Future<void> allFunction () async{
+    param();
     await getDataParkir();
-    await initStat();
+    await getDataManasiswa();
     await modal();
   }
 
-    Future <void> initStat()async{
-      //final alamat = apiURL + nm;
-      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
+    Future <void> getDataManasiswa()async{
+      var respons = await http.get(Uri.parse(apiURL + param()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      //print(data);
-      //await modal();
     }
     Future <void> getDataParkir()async{
-      //final alamat = apiURL + nm;
-      var respons = await http.get(Uri.parse(apiURLParkir + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
+      var respons = await http.get(Uri.parse(apiURLParkir + param()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         dataParkir = convertDataToJson['data'];
     }
   
   Future<void> createData() async {
-    // Your API endpoint URL
     final url = Uri.parse(apiURLCreate);
     Map<String, dynamic> requestBody= {
       'nim': data!['nim'],
@@ -146,7 +140,7 @@ class _InputManualState extends State<InputManual> {
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: () async =>{
-                    text()
+                    allFunction()
                     },
                   child: const Text(
                     "Simpan",

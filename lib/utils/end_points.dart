@@ -5,7 +5,6 @@ class ApiEndPoints {
   static _AuthEndPoints authEndPoints = _AuthEndPoints(); 
   // Use this for android emulator 'http://10.0.2.2/'
   // Use this for android real device with localhost 'http://192.168.1.22/' << Ip Address PC
-  // Use this for android real device with Hosting ''
 }
 
 class _AuthEndPoints {

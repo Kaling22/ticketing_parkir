@@ -44,7 +44,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
       }
       super.initState();
       initNFCManager();
-      //await text ();
     }
   
   String fromBytesToInt32(int b3, int b2, int b1, int b0) {
@@ -63,41 +62,29 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
           final nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
           nfcNumber =nfc.toString();
           print(nfcNumber.toString());
-          text();
+          allFunction();
           return nfcNumber;
       });
       print('NFC Manager initialized.');
       return nfcNumber;
   }
-  String tex(){
-    var para =initNFCManager().toString();
-    return para;
-  }
-  Future<void> text () async{
-    tex();
+  Future<void> allFunction () async{
     await getDataParkir();
-    await initStat();
+    await getDataMahasiswa();
     await modal();
   }
 
-  Future <void> initStat()async{
-      //final alamat = apiURL + nm;
+  Future <void> getDataMahasiswa()async{
       var respons = await http.get(Uri.parse(apiURL + nfcNumber), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      // print(data);
-      // await modal();
   }
   Future <void> getDataParkir()async{
-      //final alamat = apiURL + nm;
       var respons = await http.get(Uri.parse(apiURLParkir + nfcNumber), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         dataParkir = convertDataToJson['data'];
-     // print(dataParkir);
-      //await modal();
     }
   Future<void> createData() async {
-    // Your API endpoint URL
     final url = Uri.parse(apiURLCreate);
     Map<String, dynamic> requestBody= {
       'nim': data!['nim'],
@@ -142,7 +129,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
-         // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               child: Container(
@@ -226,7 +212,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                 
                 :Container(
                 child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
@@ -251,7 +236,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                             Image.network(
                               ApiEndPoints.baseUrlimg+data!['foto'].toString(),
                               height: 150,
-                              //width: ,
                             ),
                         ),
                         SizedBox(
@@ -310,7 +294,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                         onPressed: () {
                           createData();
                           Get.back();
-                          //Get.off(InputKendaraanScreen(token: token, id:id));
                           }
                         ),
                         Padding(padding: const EdgeInsets.all(10)),

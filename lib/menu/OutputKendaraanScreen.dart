@@ -40,7 +40,6 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
       }
       super.initState();
       initNFCManager();
-      //await text ();
     }
     
   String fromBytesToInt32(int b3, int b2, int b1, int b0) {
@@ -59,36 +58,26 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
           final nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
           nfcNumber =nfc.toString();
           print(nfcNumber.toString());
-          text();
+          allFunction();
           return nfcNumber;
       });
       print('NFC Manager initialized.');
       return nfcNumber;
   }
-  String tex(){
-    var para =initNFCManager().toString();
-    return para;
-  }
-  Future<void> text () async{
-    tex();
-    await initStat();
+  Future<void> allFunction () async{
+    await getDataParkir();
     await modal();
   }
 
-  Future <void> initStat()async{
-      //final alamat = apiURL + nm;
+  Future <void> getDataParkir()async{
       var respons = await http.get(Uri.parse(apiURL + nfcNumber), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
         data = convertDataToJson['data'];
-      print(data);
-      //await modal();
   }
   
   Future<void> updateData() async {
-    // Your API endpoint URL
     final url = Uri.parse(apiURL + nfcNumber);
 
-    // Data to be sent in the request body
     final dataUpdate = {'updated_by': id};
     try {
       final response = await http.put(
@@ -128,7 +117,6 @@ class _OutputKendaraanScreenState extends State<OutputKendaraanScreen> {
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Container(
               child: Container(
@@ -210,7 +198,6 @@ Future<void> modal() async{
                 )
                 :Container(
                 child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
@@ -235,7 +222,6 @@ Future<void> modal() async{
                             Image.network(
                               ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
                               height: 150,
-                              //width: ,
                             ),
                         ),
                         SizedBox(
@@ -294,7 +280,6 @@ Future<void> modal() async{
                         onPressed: () {
                           updateData();
                           Get.back();
-                          //Get.off(OutputKendaraanScreen(token: token, id:id));
                           }
                         ),
                         Padding(padding: const EdgeInsets.all(10)),

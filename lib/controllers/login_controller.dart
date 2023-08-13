@@ -23,12 +23,9 @@ class LoginController extends GetxController {
       };
       http.Response response =
           await http.post(url, body: jsonEncode(body), headers: headers);
-    //var pdfText= await json.decode(json.encode(response.body)); 
-      if (response.statusCode == 200) {
+        if (response.statusCode == 200) {
         final json = await jsonDecode(response.body);
         if (json['success'] == true) {
-          
-
           var token = json['data']['token'];
           var idpetugas = json['data']['id'].toString();
           var namapetugas = json['data']['name'].toString();
@@ -39,16 +36,10 @@ class LoginController extends GetxController {
           await prefs?.setString('id', idpetugas);
           await prefs?.setString('name', namapetugas);
           await prefs?.setString('email', emailpetugas);
-
-          print('Berhasil kayaknya');
-          print(idpetugas);
-          //DrawerScreen(token: token, id: idpetugas, name:namapetugas, email:emailpetugas);
           emailController.clear();
           passwordController.clear();
           Get.offAll(HomeScreen(token: token, id:idpetugas, name:namapetugas, email:emailpetugas));
-          
         } else if (json['success'] == false) {
-          print('Gagal cuy');
           throw jsonDecode(response.body)['message'];
         }
         

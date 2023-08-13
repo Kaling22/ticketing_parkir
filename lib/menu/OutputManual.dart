@@ -27,28 +27,26 @@ class _OutputManualState extends State<OutputManual> {
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
   _OutputManualState(this.token, this.id,this.name,this.email);
   //var token1 = OutputManual.token;
-String tex() {
+String param() {
   var para = _OutputController.text;
   return para;
 }
-Future<void> text() async{
-  tex();
+Future<void> allFunction() async{
+  param();
   await initStat();
   await modal();
 }
 
     Future <void> initStat()async{
-      //final alamat = apiURL + nm;
-      var respons = await http.get(Uri.parse(apiURL + tex()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
+      var respons = await http.get(Uri.parse(apiURL + param()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
       var convertDataToJson = jsonDecode(respons.body);
       data = convertDataToJson['data'];
       print(data);
-      //await modal();
   }
   
   Future<void> updateData() async {
     // Your API endpoint URL
-    final url = Uri.parse(apiURL + tex());
+    final url = Uri.parse(apiURL + param());
 
     // Data to be sent in the request body
     final dataUpdate = {'updated_by': id};
@@ -131,7 +129,7 @@ Future<void> text() async{
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: () async =>{
-                    text(),
+                    allFunction(),
                     },
                   child: const Text(
                     "Simpan",
@@ -177,7 +175,6 @@ Future<void> text() async{
                 )
                 :Container(
                 child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
@@ -202,7 +199,6 @@ Future<void> text() async{
                             Image.network(
                               ApiEndPoints.baseUrlimg+data!['mahasiswa']['foto'].toString(),
                               height: 150,
-                              //width: ,
                             ),
                         ),
                         SizedBox(
@@ -251,7 +247,6 @@ Future<void> text() async{
                   ),
                   
                   Container(
-              
                     child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
