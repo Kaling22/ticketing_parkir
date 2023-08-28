@@ -17,7 +17,6 @@ class OutputKendaraanScreen extends StatefulWidget {
   final String email;
   OutputKendaraanScreen({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
 
-  @override
   State<OutputKendaraanScreen> createState() => _OutputKendaraanScreenState(token,id,name,email);
 }
 
