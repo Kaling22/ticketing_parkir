@@ -12,7 +12,6 @@ class InputManual extends StatefulWidget {
   final String name;
   final String email;
   const InputManual({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
-  @override
   State<InputManual> createState() => _InputManualState(token, id,name,email);
 }
 
@@ -82,8 +81,6 @@ class _InputManualState extends State<InputManual> {
   }
   
 
-  
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

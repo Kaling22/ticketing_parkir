@@ -11,7 +11,6 @@ class HomeScreen extends StatefulWidget {
   final String email;
   const HomeScreen({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
 
-  @override
   State<HomeScreen> createState() => _HomeScreenState(token, id,name,email);
 }
 
@@ -22,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String email;
   _HomeScreenState(this.token, this.id,this.name,this.email);
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

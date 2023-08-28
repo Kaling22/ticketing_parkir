@@ -72,7 +72,6 @@ Future<void> allFunction() async{
   
 
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

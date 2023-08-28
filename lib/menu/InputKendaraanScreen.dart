@@ -37,7 +37,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   var apiURLCreate = ApiEndPoints.baseUrl2 + ApiEndPoints.authEndPoints.park2;
   _InputKendaraanScreenState(this.token, this.id,this.name,this.email);
 
-  @override
     void initState() {
       if (mounted) { 
         setState (() => _InputKendaraanScreenState(token, id, name, email));
@@ -47,7 +46,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
     }
   
   String fromBytesToInt32(int b3, int b2, int b1, int b0) {
-    final int8List = new Int8List(4)
+    var int8List = new Int8List(4)
       ..[3] = b3
       ..[2] = b2
       ..[1] = b1
@@ -59,7 +58,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
       await NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
           var tagId = tag.data["nfca"]["identifier"];
           print('Tag ID: $tagId');
-          final nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
+          var nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
           nfcNumber =nfc.toString();
           print(nfcNumber.toString());
           allFunction();
@@ -113,7 +112,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   }
 
   //UI
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
