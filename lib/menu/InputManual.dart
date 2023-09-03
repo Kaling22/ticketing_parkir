@@ -12,11 +12,11 @@ class InputManual extends StatefulWidget {
   final String name;
   final String email;
   const InputManual({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
+  @override
   State<InputManual> createState() => _InputManualState(token, id,name,email);
 }
 
 class _InputManualState extends State<InputManual> {
-
   Map? data;
   Map? dataParkir;
   String? uri;
@@ -80,7 +80,7 @@ class _InputManualState extends State<InputManual> {
     }
   }
   
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -153,7 +153,6 @@ class _InputManualState extends State<InputManual> {
   }
   
   Future<void> modal() async{
-    
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled:true,
@@ -184,7 +183,6 @@ class _InputManualState extends State<InputManual> {
                 )
                 :Container(
                 child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
@@ -209,7 +207,6 @@ class _InputManualState extends State<InputManual> {
                             Image.network(
                               ApiEndPoints.baseUrlimg+data!['foto'].toString(),
                               height: 150,
-                              //width: ,
                             ),
                         ),
                         SizedBox(
@@ -249,16 +246,13 @@ class _InputManualState extends State<InputManual> {
                                 subtitle: Text(data!['kendaraan'].toString()) ,
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                             ),
-                            
                           ],
                         ),
-                        
                       ],
                     )
                   ),
                   
                   Container(
-              
                     child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -277,13 +271,11 @@ class _InputManualState extends State<InputManual> {
                       ],
                     ),
                   )
-                  
                 ],
               ),
             ),
         );
       },
     );
-                  
   }
 }

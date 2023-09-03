@@ -8,6 +8,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Ticketing Parkir',
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Color.fromARGB(255, 99, 152, 223),
       ),
+      //initialRoute: '/',
       home: LoginScreen(),
     );
   }

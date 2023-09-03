@@ -17,7 +17,6 @@ class InputKendaraanScreen extends StatefulWidget {
   final String name;
   final String email;
   InputKendaraanScreen({Key? key, required this.token, required this.id,required this.name,required this.email}) : super(key: key);
-
   @override
   State<InputKendaraanScreen> createState() => _InputKendaraanScreenState(token,id,name,email);
 }
@@ -37,6 +36,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   var apiURLCreate = ApiEndPoints.baseUrl2 + ApiEndPoints.authEndPoints.park2;
   _InputKendaraanScreenState(this.token, this.id,this.name,this.email);
 
+  @override
     void initState() {
       if (mounted) { 
         setState (() => _InputKendaraanScreenState(token, id, name, email));
@@ -46,7 +46,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
     }
   
   String fromBytesToInt32(int b3, int b2, int b1, int b0) {
-    var int8List = new Int8List(4)
+    final int8List = new Int8List(4)
       ..[3] = b3
       ..[2] = b2
       ..[1] = b1
@@ -58,7 +58,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
       await NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
           var tagId = tag.data["nfca"]["identifier"];
           print('Tag ID: $tagId');
-          var nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
+          final nfc = fromBytesToInt32(tagId[0], tagId[1], tagId[2], tagId[3]).toString().padLeft(10, '0');
           nfcNumber =nfc.toString();
           print(nfcNumber.toString());
           allFunction();
@@ -112,6 +112,7 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
   }
 
   //UI
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -169,7 +170,6 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                   color: Color.fromARGB(255, 0, 0, 0)),
             ),
             ),
-            
           ],
         ),
       )),
@@ -203,11 +203,8 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                         onPressed: () => Get.back(),
                       ),
                     ],
-                  
                   ),
-                  
                 )
-                
                 :Container(
                 child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -273,16 +270,13 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                                 subtitle: Text(data!['kendaraan'].toString()) ,
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                             ),
-                            
                           ],
                         ),
-                        
                       ],
                     )
                   ),
                   
                   Container(
-              
                     child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -302,13 +296,11 @@ class _InputKendaraanScreenState extends State<InputKendaraanScreen> {
                       ],
                     ),
                   )
-                  
                 ],
               ),
             ),
         );
       },
     );
-                  
   }
 }

@@ -16,7 +16,6 @@ class OutputManual extends StatefulWidget {
 }
 
 class _OutputManualState extends State<OutputManual> {
-
   Map? data;
   String? uri;
   String token;
@@ -26,7 +25,7 @@ class _OutputManualState extends State<OutputManual> {
   final TextEditingController _OutputController = TextEditingController();
   var apiURL = ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.park;
   _OutputManualState(this.token, this.id,this.name,this.email);
-  //var token1 = OutputManual.token;
+
 String param() {
   var para = _OutputController.text;
   return para;
@@ -36,13 +35,12 @@ Future<void> allFunction() async{
   await initStat();
   await modal();
 }
-
-    Future <void> initStat()async{
-      var respons = await http.get(Uri.parse(apiURL + param()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
-      var convertDataToJson = jsonDecode(respons.body);
-      data = convertDataToJson['data'];
-      print(data);
-  }
+Future <void> initStat()async{
+  var respons = await http.get(Uri.parse(apiURL + param()), headers: {'Accept': 'application/json','Authorization': 'Bearer $token'});
+  var convertDataToJson = jsonDecode(respons.body);
+  data = convertDataToJson['data'];
+  print(data);
+}
   
   Future<void> updateData() async {
     // Your API endpoint URL
@@ -70,8 +68,7 @@ Future<void> allFunction() async{
     }
   }
   
-
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -237,10 +234,8 @@ Future<void> allFunction() async{
                                 subtitle: Text(data!['kendaraan'].toString()) ,
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                             ),
-                            
                           ],
                         ),
-                        
                       ],
                     )
                   ),
@@ -264,13 +259,11 @@ Future<void> allFunction() async{
                       ],
                     ),
                   )
-                  
                 ],
               ),
             ),
         );
       },
     );
-                  
   }
 }
